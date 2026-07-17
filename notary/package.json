@@ -1,0 +1,38 @@
+{
+  "name": "opencode-arbiter",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Local-first model router for OpenCode: per-task local (Ollama) vs cloud routing, with tier-scaled context handoff on model switches.",
+  "keywords": ["opencode", "ollama", "llm", "router", "plugin", "local-first"],
+  "license": "MIT",
+  "homepage": "https://github.com/Penitant/arbiter-release",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Penitant/arbiter-release.git"
+  },
+  "bin": {
+    "arbiter": "bin/arbiter.js"
+  },
+  "main": "src/index.ts",
+  "files": [
+    "bin/",
+    "src/",
+    "tsconfig.json",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types src/*.test.ts"
+  },
+  "dependencies": {
+    "tar": "^7.4.3"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "^1.17.10",
+    "@types/node": "^22.20.0",
+    "typescript": "^5.5.0"
+  }
+}

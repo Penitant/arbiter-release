@@ -1,0 +1,41 @@
+name: Deploy landing page
+
+# Rebuild + deploy the site on every push to main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One live deployment at a time; let a newer push cancel an in-flight one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Stamp the current npm version into the page (best-effort, no build tooling needed).
+      - name: Stamp version
+        run: |
+          VER=$(node -p "require('./notary/package.json').version" 2>/dev/null || echo "")
+          if [ -n "$VER" ]; then
+            sed -i "s/opencode-arbiter@1.0.0/opencode-arbiter@${VER}/g" site/index.html || true
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,32 @@
+# Secrets and local state
+server/.env
+server/db/*.db
+server/db/*.db-shm
+server/db/*.db-wal
+server/cache/
+
+# Node
+node_modules/
+notary/package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# Regenerable training artifacts (the committed checkpoint is kept)
+server/triage/data/*.jsonl
+server/triage/data/*.csv
+server/triage/data/embeddings.pt
+server/triage/data/*.log
+server/triage/*.log
+
+# Release build output
+dist/
+*.tar.gz
+*.tar.gz.sha256
+
+# Site build
+site/.cache/
